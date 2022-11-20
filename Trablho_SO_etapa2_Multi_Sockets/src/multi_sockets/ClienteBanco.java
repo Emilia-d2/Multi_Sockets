@@ -13,8 +13,8 @@ import java.util.Scanner;
  */
 public class ClienteBanco extends Thread {
 
-    private String IP_DEF = ConfiguracaoServidor.IP_SERV;
-    private int PORTA_DEF = ConfiguracaoServidor.PORTA_SERV;
+    private String IP_SERV = ConfiguracaoServidor.IP_SERV;
+    private int PORTA_SERV = ConfiguracaoServidor.PORTA_SERV;
     private Comunicador canalServidor;
     private Scanner entradaDados;
     private short mensagem_tipo;
@@ -30,10 +30,10 @@ public class ClienteBanco extends Thread {
     public void run() {
         try {
             ByteBuffer buf = null;
-            ///////////////////////////////////////////////////////////////////
-            System.out.println("Cliente =>");
-            System.out.println("\t Recebendo Mensagens ... \n");
-            ///////////////////////////////////////////////////////////////////
+            System.out.println("----------------------------------");
+            System.out.println("Cliente =>                        |");
+            System.out.println("\t Recebendo Mensagens ... \n     |");
+           System.out.println("-----------------------------------");
             while (true) {
                 buf = this.canalServidor.RecebendoMensagem();
                 this.mensagem_tipo = buf.getShort();
@@ -72,7 +72,7 @@ public class ClienteBanco extends Thread {
     public void conectarServidor() {
         try {
             this.canalServidor = new Comunicador();
-            this.canalServidor.conectaServidor(this.IP_DEF + ":" + this.PORTA_DEF);
+            this.canalServidor.conectaServidor(this.IP_SERV + ":" + this.PORTA_SERV);
             System.out.println("Conectei ao servidor: " + this.canalServidor.portaRemotaClienteDesc());
             this.start();
         } catch (Exception e) {
@@ -85,11 +85,11 @@ public class ClienteBanco extends Thread {
             int opcao;
             this.entradaDados = new Scanner(System.in);
 
-            System.out.println("==============================");
-            System.out.println("\t 1 - Deposito");
-            System.out.println("\t 2 - Saque");
-            System.out.println("\t 3 - Consulta extrato");
-            System.out.println("==============================");
+            System.out.println("-----------------------------");
+            System.out.println("\t 1 - Deposito             |");
+            System.out.println("\t 2 - Saque                |");
+            System.out.println("\t 3 - Consulta extrato     |");
+            System.out.println("-----------------------------");
             do {
                 System.out.println("Digite a opção:");
                 opcao = this.entradaDados.nextInt();

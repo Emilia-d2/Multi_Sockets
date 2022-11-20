@@ -13,8 +13,8 @@ import java.util.Scanner;
  */
 public class GerenteBancario extends Thread{
     
-    private String IP = ConfiguracaoServidor.IP_SERV;
-    private int PORTA = ConfiguracaoServidor.PORTA_SERV;
+    private String IP_SERV = ConfiguracaoServidor.IP_SERV;
+    private int PORTA_SERV = ConfiguracaoServidor.PORTA_SERV;
     private Comunicador canalServidor;
     private Scanner entradaDados;
     private short mensagem_tipo;
@@ -30,10 +30,11 @@ public class GerenteBancario extends Thread{
     public void run() {
         try {
             ByteBuffer buffer = null;
-            ///////////////////////////////////////////////////////////////////
-            System.out.println("Gerente do banco =>");
-            System.out.println("\t Está recebendo mensagens ... \n");
-            ///////////////////////////////////////////////////////////////////
+            System.out.println("---------------------------------------");
+            System.out.println("Gerente do banco =>                    |");
+            System.out.println("\t Está recebendo mensagens ... \n     |");
+            System.out.println("---------------------------------------");
+            
             while (true) {
                 buffer = this.canalServidor.RecebendoMensagem();
                 this.mensagem_tipo = buffer.getShort();
@@ -71,8 +72,8 @@ public class GerenteBancario extends Thread{
 
     public void conectarServidor() {
         try {
-            this.canalServidor = new Comunicador(IP);
-            this.canalServidor.conectaServidor(this.IP + ":" + this.PORTA);
+            this.canalServidor = new Comunicador(IP_SERV);
+            this.canalServidor.conectaServidor(this.IP_SERV + ":" + this.PORTA_SERV);
             System.out.println("Conectei ao servidor: " + this.canalServidor.canalRemotoClienteDesc());
             this.start();
         } catch (Exception e) {
@@ -85,27 +86,33 @@ public class GerenteBancario extends Thread{
             int opcao;
             this.entradaDados = new Scanner(System.in);
 
-            System.out.println("==============================");
-            System.out.println("\t 1 - Deposito");
-            System.out.println("\t 2 - Saque");
-            System.out.println("\t 3 - Consulta extrato");
-            System.out.println("==============================");
+            System.out.println("-----------------------------");
+            System.out.println("\t 1 - Nova Conta            |");
+            System.out.println("\t 2 - Consulta Conta        |");
+            System.out.println("\t 3 - Atualizar Conta       |");
+            System.out.println("\t 3 - Deletar Conta         |");
+            System.out.println("-----------------------------");
             do {
                 System.out.println("Digite a opção:");
                 opcao = this.entradaDados.nextInt();
 
                 switch (opcao) {
                     case 1:
-                        deposito();
+                        criaConta();
                         break;
 
                     case 2:
-                        saque();
+                        consultaConta();
                         break;
 
                     case 3:
-                        extrato();
+                        atualizaConta();
                         break;
+                        
+                    case 4:
+                        deletarConta();
+                        break;
+
 
                     default:
                         System.out.println("Opção inválida.");
@@ -116,7 +123,7 @@ public class GerenteBancario extends Thread{
         }
     }
 
-    public void deposito() {
+    public void criaConta() {
         try {
             this.entradaDados = new Scanner(System.in);
             System.out.println("Informe a conta bancaria: ");
@@ -129,7 +136,7 @@ public class GerenteBancario extends Thread{
         }
     }
 
-    public void saque() {
+    public void consultaConta() {
         try {
 
         } catch (Exception e) {
@@ -137,7 +144,15 @@ public class GerenteBancario extends Thread{
         }
     }
 
-    public void extrato() {
+    public void atualizaConta() {
+        try {
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void deletarConta() {
         try {
 
         } catch (Exception e) {

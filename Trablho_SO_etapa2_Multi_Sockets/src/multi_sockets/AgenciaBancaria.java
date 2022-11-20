@@ -19,6 +19,7 @@ public class AgenciaBancaria extends Thread{
     private LinkedHashMap<Integer, ContaBancaria> listaDeContas;
     private short mensagem_tipo;
     private int numeroConta;
+    private String descricao;
     private float valorSaque;
     private float valorDeposito;
     private int mensagem_tamanho;
@@ -127,5 +128,15 @@ public class AgenciaBancaria extends Thread{
             e.printStackTrace();
         }
     }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+    
+    
     
 }

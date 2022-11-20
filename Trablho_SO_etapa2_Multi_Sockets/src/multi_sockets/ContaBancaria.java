@@ -10,13 +10,16 @@ package multi_sockets;
  */
 public class ContaBancaria {
     private int conexao_porta;
-    private int numero;
+    private int numeroConta;
     private float saldo;
     private float limite;
+    private String nomeUsuario;
+    private String cfp;
     private AgenciaBancaria agencia;
     
-    public ContaBancaria(int numero) {
-        this.numero = numero;
+    
+    public ContaBancaria(int numeroConta) {
+        this.numeroConta = numeroConta;
         this.limite = 1000000;
     }
 
@@ -28,12 +31,12 @@ public class ContaBancaria {
         this.conexao_porta = conexao_porta;
     }
 
-    public int getNumero() {
-        return numero;
+    public int getNumeroConta() {
+        return numeroConta;
     }
 
-    public void setNumero(int numero) {
-        this.numero = numero;
+    public void setNumeroConta(int numeroConta) {
+        this.numeroConta = numeroConta;
     }
     
      public void deposita(float valor) {
@@ -67,6 +70,24 @@ public class ContaBancaria {
     public void setAgencia(AgenciaBancaria agencia) {
         this.agencia = agencia;
     }
+
+    public String getNomeUsuario() {
+        return nomeUsuario;
+    }
+
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
+    }
+
+    public String getCfp() {
+        return cfp;
+    }
+
+    public void setCfp(String cfp) {
+        this.cfp = cfp;
+    }
+    
+    
     
     
 }

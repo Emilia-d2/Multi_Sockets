@@ -194,7 +194,20 @@ public class Comunicador extends Thread{
         }
     }
 
-    public void Mensagem_saque(SocketChannel canal, int conta, float valorSaque) {
+    public void Mensagem_saque(SocketChannel canal, int conta, float valorSaque, int conexao_porta) {
+        try {
+            int tamMsg = 2 + 4 + 4 + 4 + 4;
+            ByteBuffer writeBuffer = ByteBuffer.allocateDirect(tamMsg);
+            writeBuffer.putShort(this.SAQUE);
+            writeBuffer.putInt(tamMsg);
+            writeBuffer.putInt(conta);
+            writeBuffer.putFloat(valorSaque);
+            writeBuffer.putInt(conexao_porta);
+            writeBuffer.rewind();
+            channelWrite(canal, writeBuffer);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
     

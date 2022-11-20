@@ -13,12 +13,16 @@ public class Canal {
     public static void main (String[] args) {
         AgenciaBancaria agenciaA = new AgenciaBancaria(12345);
         
-        ContaBancaria contaA = new ContaBancaria(987);
-        contaA.setAgencia(agenciaA);   
-        agenciaA.setContaBancaria(contaA.getNumero(), contaA);
+        ContaBancaria conta1 = new ContaBancaria(987);
+        conta1.setAgencia(agenciaA);   
+        agenciaA.setContaBancaria(conta1.getNumeroConta(), conta1);
         
-        ContaBancaria contaB = new ContaBancaria(989);
-        contaB.setAgencia(agenciaA);   
-        agenciaA.setContaBancaria(contaB.getNumero(), contaB);
+        ContaBancaria conta2 = new ContaBancaria(989);
+        conta2.setAgencia(agenciaA);   
+        agenciaA.setContaBancaria(conta2.getNumeroConta(), conta2);
+        
+        ContaBancaria conta3 = new ContaBancaria(989);
+        conta3.setAgencia(agenciaA);   
+        agenciaA.setContaBancaria(conta3.getNumeroConta(), conta3);
     }
 }

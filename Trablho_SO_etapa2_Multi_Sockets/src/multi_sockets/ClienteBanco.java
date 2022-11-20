@@ -11,54 +11,54 @@ import java.util.Scanner;
  *
  * @author milif
  */
-public class GerenteBancario extends Thread{
-    
-    private String IP = ConfiguracaoServidor.IP_SERV;
-    private int PORTA = ConfiguracaoServidor.PORTA_SERV;
+public class ClienteBanco extends Thread {
+
+    private String IP_DEF = ConfiguracaoServidor.IP_SERV;
+    private int PORTA_DEF = ConfiguracaoServidor.PORTA_SERV;
     private Comunicador canalServidor;
     private Scanner entradaDados;
     private short mensagem_tipo;
     private int mensagem_tamanho;
     private int porta_conexao;
-    
+
     public static void main(String[] args) {
-        GerenteBancario gerente = new GerenteBancario();
-        gerente.conectarServidor();
-        gerente.menu();
+        ClienteBanco cliente = new ClienteBanco();
+        cliente.conectarServidor();
+        cliente.menu();
     }
 
     public void run() {
         try {
-            ByteBuffer buffer = null;
+            ByteBuffer buf = null;
             ///////////////////////////////////////////////////////////////////
-            System.out.println("Gerente do banco =>");
-            System.out.println("\t Está recebendo mensagens ... \n");
+            System.out.println("Cliente =>");
+            System.out.println("\t Recebendo Mensagens ... \n");
             ///////////////////////////////////////////////////////////////////
             while (true) {
-                buffer = this.canalServidor.RecebendoMensagem();
-                this.mensagem_tipo = buffer.getShort();
-                this.mensagem_tamanho = buffer.getInt();
+                buf = this.canalServidor.RecebendoMensagem();
+                this.mensagem_tipo = buf.getShort();
+                this.mensagem_tamanho = buf.getInt();
 
                 switch (this.mensagem_tipo) {
                     case ConfiguracaoServidor.EXTRATO:
-                        System.out.println("Gerente =>");
-                        System.out.println("\t Recebi o extrato");
+                        System.out.println("Cliente =>");
+                        System.out.println("\t Recebi Msg EXTRATO");
                         break;
                     case ConfiguracaoServidor.DEPOSITO:
-                        System.out.println("Gerente =>");
-                        System.out.println("\t Recebi o deposito");
+                        System.out.println("Cliente =>");
+                        System.out.println("\t Recebi Msg DEPOSITO");
                         break;
                     case ConfiguracaoServidor.SAQUE:
-                        System.out.println("Gerente =>");
-                        System.out.println("\t Recebi o saque");
+                        System.out.println("Cliente =>");
+                        System.out.println("\t Recebi Msg SAQUE");
                         break;
                     case ConfiguracaoServidor.PORTA_CONEXAO:
-                        this.porta_conexao = buffer.getInt();
-                        System.out.println("Gerente =>");
+                        this.porta_conexao = buf.getInt();
+                        System.out.println("Cliente =>");
                         System.out.println("\t Porta de Conexao com o servidor: " + this.porta_conexao);
                         break;
                     default:
-                        System.out.println("Gerente =>");
+                        System.out.println("Cliente =>");
                         System.out.println("\t\t TIPO DE MENSAGEM INVALIDA: " + mensagem_tipo + "\n");
                         break;
                 }
@@ -71,9 +71,9 @@ public class GerenteBancario extends Thread{
 
     public void conectarServidor() {
         try {
-            this.canalServidor = new Comunicador(IP);
-            this.canalServidor.conectaServidor(this.IP + ":" + this.PORTA);
-            System.out.println("Conectei ao servidor: " + this.canalServidor.canalRemotoClienteDesc());
+            this.canalServidor = new Comunicador();
+            this.canalServidor.conectaServidor(this.IP_DEF + ":" + this.PORTA_DEF);
+            System.out.println("Conectei ao servidor: " + this.canalServidor.portaRemotaClienteDesc());
             this.start();
         } catch (Exception e) {
             e.printStackTrace();
@@ -152,5 +152,6 @@ public class GerenteBancario extends Thread{
     public void setPorta_conexao(int porta_conexao) {
         this.porta_conexao = porta_conexao;
     }
-    
+
+
 }

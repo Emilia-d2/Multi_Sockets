@@ -13,13 +13,14 @@ import java.util.Scanner;
  */
 public class GerenteBancario extends Thread{
     
-    private String IP_SERV = ConfiguracaoServidor.IP_SERV;
-    private int PORTA_SERV = ConfiguracaoServidor.PORTA_SERV;
+    private final String IP_SERV = ConfiguracaoServidor.IP_SERV;
+    private final int PORTA_SERV = ConfiguracaoServidor.PORTA_SERV;
     private Comunicador canalServidor;
     private Scanner entradaDados;
     private short mensagem_tipo;
     private int mensagem_tamanho;
     private int porta_conexao;
+    private ClienteBanco clienteBanco; 
     
     public static void main(String[] args) {
         GerenteBancario gerente = new GerenteBancario();
@@ -27,12 +28,13 @@ public class GerenteBancario extends Thread{
         gerente.menu();
     }
 
+    @Override
     public void run() {
         try {
             ByteBuffer buffer = null;
             System.out.println("---------------------------------------");
             System.out.println("Gerente do banco =>                    |");
-            System.out.println("\t Está recebendo mensagens ... \n     |");
+            System.out.println("\t Há uma troca de mensagens           |");
             System.out.println("---------------------------------------");
             
             while (true) {
@@ -41,17 +43,21 @@ public class GerenteBancario extends Thread{
                 this.mensagem_tamanho = buffer.getInt();
 
                 switch (this.mensagem_tipo) {
-                    case ConfiguracaoServidor.EXTRATO:
+                    case ConfiguracaoServidor.CRIAR_CONTA:
                         System.out.println("Gerente =>");
-                        System.out.println("\t Recebi o extrato");
+                        System.out.println("\t Criei uma conta Bancária! ");
                         break;
-                    case ConfiguracaoServidor.DEPOSITO:
+                    case ConfiguracaoServidor.ATUALIZAR_CONTA:
                         System.out.println("Gerente =>");
-                        System.out.println("\t Recebi o deposito");
+                        System.out.println("\t Atualizei uma conta Bancária! ");
                         break;
-                    case ConfiguracaoServidor.SAQUE:
+                    case ConfiguracaoServidor.LER_CONTA:
                         System.out.println("Gerente =>");
-                        System.out.println("\t Recebi o saque");
+                        System.out.println("\t Quero ver as contas Bancárias! ");
+                        break;
+                    case ConfiguracaoServidor.DELETAR_CONTA:
+                        System.out.println("Gerente =>");
+                        System.out.println("\t Exclui uma conta Bancária! ");
                         break;
                     case ConfiguracaoServidor.PORTA_CONEXAO:
                         this.porta_conexao = buffer.getInt();
@@ -60,7 +66,7 @@ public class GerenteBancario extends Thread{
                         break;
                     default:
                         System.out.println("Gerente =>");
-                        System.out.println("\t\t TIPO DE MENSAGEM INVALIDA: " + mensagem_tipo + "\n");
+                        System.out.println("\t TIPO DE MENSAGEM INVALIDA: " + mensagem_tipo + "\n");
                         break;
                 }
             }
@@ -92,32 +98,29 @@ public class GerenteBancario extends Thread{
             System.out.println("\t 3 - Atualizar Conta       |");
             System.out.println("\t 3 - Deletar Conta         |");
             System.out.println("-----------------------------");
-            do {
-                System.out.println("Digite a opção:");
-                opcao = this.entradaDados.nextInt();
-
+            System.out.println("Digite a opção ==> ");
+            opcao = this.entradaDados.nextInt();
+                
+            while(opcao != 0) {
                 switch (opcao) {
                     case 1:
                         criaConta();
                         break;
-
                     case 2:
                         consultaConta();
                         break;
-
                     case 3:
                         atualizaConta();
                         break;
-                        
                     case 4:
                         deletarConta();
                         break;
-
-
                     default:
                         System.out.println("Opção inválida.");
+                        break;
                 }
-            } while (opcao != 0);
+               
+            } 
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -126,7 +129,7 @@ public class GerenteBancario extends Thread{
     public void criaConta() {
         try {
             this.entradaDados = new Scanner(System.in);
-            System.out.println("Informe a conta bancaria: ");
+            System.out.println("Informe o n° da conta bancaria que deseja criar: ");
             int conta = this.entradaDados.nextInt();
             System.out.println("Informe o valor para deposito: ");
             float valorDeposito = this.entradaDados.nextFloat();
@@ -138,6 +141,12 @@ public class GerenteBancario extends Thread{
 
     public void consultaConta() {
         try {
+            this.entradaDados = new Scanner(System.in);
+            System.out.println("Informe o n° da conta bancaria que deseja : ");
+            int conta = this.entradaDados.nextInt();
+            System.out.println("Informe o valor para deposito: ");
+            float valorDeposito = this.entradaDados.nextFloat();
+            this.canalServidor.MsgSend_Deposito(this.canalServidor.getSocket(), conta, valorDeposito, this.porta_conexao);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -146,6 +155,13 @@ public class GerenteBancario extends Thread{
 
     public void atualizaConta() {
         try {
+            this.entradaDados = new Scanner(System.in);
+            System.out.println("Informe o n° da conta bancaria que deseja : ");
+            int conta = this.entradaDados.nextInt();
+            System.out.println("Informe o valor para deposito: ");
+            float valorDeposito = this.entradaDados.nextFloat();
+            this.canalServidor.MsgSend_Deposito(this.canalServidor.getSocket(), conta, valorDeposito, this.porta_conexao);
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -154,6 +170,13 @@ public class GerenteBancario extends Thread{
     
     public void deletarConta() {
         try {
+            this.entradaDados = new Scanner(System.in);
+            System.out.println("Informe o n° da conta bancaria que deseja : ");
+            int conta = this.entradaDados.nextInt();
+            System.out.println("Informe o valor para deposito: ");
+            float valorDeposito = this.entradaDados.nextFloat();
+            this.canalServidor.MsgSend_Deposito(this.canalServidor.getSocket(), conta, valorDeposito, this.porta_conexao);
+
 
         } catch (Exception e) {
             e.printStackTrace();

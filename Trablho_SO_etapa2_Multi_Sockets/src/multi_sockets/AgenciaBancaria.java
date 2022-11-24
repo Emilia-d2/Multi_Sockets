@@ -11,7 +11,7 @@ import java.util.LinkedHashMap;
  *
  * @author milif
  */
-public class AgenciaBancaria extends Thread{
+public final class AgenciaBancaria extends Thread{
     
     private String IP = ConfiguracaoServidor.IP_SERV;
     private int numero_agencia;
@@ -25,11 +25,11 @@ public class AgenciaBancaria extends Thread{
     private int mensagem_tamanho;
     private int conexao_porta;
     
-     public AgenciaBancaria(int numero_agencia) {
+    public AgenciaBancaria(int numero_agencia) {
         try {
             this.setNumeroAgencia(numero_agencia);
             this.canalDoServidor = new Comunicador(this.IP);
-            this.listaDeContas = new LinkedHashMap<Integer, ContaBancaria>();
+            this.listaDeContas = new LinkedHashMap<>();
 
             System.out.println("Servidor da agência " + this.getNumeroAgencia()
                     + " iniciado no canal " + this.canalDoServidor.Server());
@@ -43,10 +43,10 @@ public class AgenciaBancaria extends Thread{
     public void run() {
         try {
             ByteBuffer buf = null;
-            ///////////////////////////////////////////////////////////////////
-            System.out.println("Agencia Central =>");
-            System.out.println("\t Recebendo Mensagens ... \n");
-            ///////////////////////////////////////////////////////////////////
+            System.out.println("----------------------------------------------------");
+            System.out.println("Agencia Bancária do Paga Bem e de Pressa! =>        |");
+            System.out.println("\t Recebendo Mensagens ... \n                       |");
+            System.out.println("----------------------------------------------------");
             while (true) {
                 buf = this.canalDoServidor.RecebendoMensagem();
                 this.mensagem_tipo = buf.getShort();
@@ -55,19 +55,39 @@ public class AgenciaBancaria extends Thread{
                 switch (this.mensagem_tipo) {
                     case ConfiguracaoServidor.DEPOSITO:
                         this.numeroConta = buf.getInt();
-                        this.valorDeposito = buf.getFloat();
+                        this.descricao = buf.toString();
                         this.conexao_porta = buf.getInt();
-                        System.out.println("Cliente =>");
-                        System.out.println("\t Recebi Msg DEPOSITO");
-                        System.out.println("\t Conta Bancaria: " + this.numeroConta);
-                        System.out.println("\t Valor do Deposito: " + this.valorDeposito);
-                        this.tratamentoMensagemDeposito(this.numeroConta, this.valorDeposito, this.conexao_porta);
+                        System.out.println("----------------------------------------------------");
+                        System.out.println("Cliente Conectado =>                                |");
+                        System.out.println("\t Recebi mensagem do DEPOSITO                      |");
+                        System.out.println("\t Conta Bancaria: " + this.numeroConta + "         |");
+                        System.out.println("\t Descrição do Deposito: " + this.descricao + "    |");
+                        System.out.println("----------------------------------------------------");
+                        this.tratamentoMensagemDeposito(this.numeroConta, this.descricao, this.conexao_porta);
                         break;
                     case ConfiguracaoServidor.SAQUE:
-
+                        this.numeroConta = buf.getInt();
+                        this.descricao = buf.toString();
+                        this.conexao_porta = buf.getInt();
+                        System.out.println("----------------------------------------------------");
+                        System.out.println("Cliente Conectado =>                                |");
+                        System.out.println("\t Recebi mensagem do DEPOSITO                      |");
+                        System.out.println("\t Conta Bancaria: " + this.numeroConta + "         |");
+                        System.out.println("\t Descrição do Deposito: " + this.descricao + "    |");
+                        System.out.println("----------------------------------------------------");
+                        this.tratamentoMensagemDeposito(this.numeroConta, this.descricao, this.conexao_porta);
                         break;
                     case ConfiguracaoServidor.EXTRATO:
-
+                        this.numeroConta = buf.getInt();
+                        this.descricao = buf.toString();
+                        this.conexao_porta = buf.getInt();
+                        System.out.println("----------------------------------------------------");
+                        System.out.println("Cliente Conectado =>                                |");
+                        System.out.println("\t Recebi mensagem do DEPOSITO                      |");
+                        System.out.println("\t Conta Bancaria: " + this.numeroConta + "         |");
+                        System.out.println("\t Descrição do Deposito: " + this.descricao + "    |");
+                        System.out.println("----------------------------------------------------");
+                        this.tratamentoMensagemDeposito(this.numeroConta, this.descricao, this.conexao_porta);
                         break;
                     default:
                         System.out.println("Cliente =>");
@@ -114,13 +134,13 @@ public class AgenciaBancaria extends Thread{
         }
     }
 
-    public void tratamentoMensagemDeposito(int numero_conta, float valorDeposito, int conexao_porta) {
+    public void tratamentoMensagemDeposito(int numero_conta, String descricao, int conexao_porta) {
         try {
             if (this.listaDeContas.containsKey(numero_conta)) {
                 this.listaDeContas.get(numero_conta).setConexao_porta(conexao_porta);
 
-                if (this.canalDoServidor.getClienteSocketLista().containsKey(conexao_porta)) {
-                    this.canalDoServidor.MsgSend_Extrato(this.canalDoServidor.getClienteSocketLista().get(conexao_porta), numero_conta, valorDeposito);
+                if (Comunicador.getClienteSocketLista().containsKey(conexao_porta)) {
+                    this.canalDoServidor.MsgSend_Extrato(Comunicador.getClienteSocketLista().get(conexao_porta), numero_conta, valorDeposito);
                 }
             }
 

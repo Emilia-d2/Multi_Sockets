@@ -13,8 +13,8 @@ import java.util.Scanner;
  */
 public class ClienteBanco extends Thread {
 
-    private String IP_SERV = ConfiguracaoServidor.IP_SERV;
-    private int PORTA_SERV = ConfiguracaoServidor.PORTA_SERV;
+    private final String IP_SERV = ConfiguracaoServidor.IP_SERV;
+    private final int PORTA_SERV = ConfiguracaoServidor.PORTA_SERV;
     private Comunicador canalServidor;
     private Scanner entradaDados;
     private short mensagem_tipo;
@@ -32,7 +32,7 @@ public class ClienteBanco extends Thread {
             ByteBuffer buf = null;
             System.out.println("----------------------------------");
             System.out.println("Cliente =>                        |");
-            System.out.println("\t Recebendo Mensagens ... \n     |");
+            System.out.println("\t Há uma troca de mensagens      |");
            System.out.println("-----------------------------------");
             while (true) {
                 buf = this.canalServidor.RecebendoMensagem();
@@ -42,15 +42,15 @@ public class ClienteBanco extends Thread {
                 switch (this.mensagem_tipo) {
                     case ConfiguracaoServidor.EXTRATO:
                         System.out.println("Cliente =>");
-                        System.out.println("\t Recebi Msg EXTRATO");
+                        System.out.println("\t Extrato comigo ");
                         break;
                     case ConfiguracaoServidor.DEPOSITO:
                         System.out.println("Cliente =>");
-                        System.out.println("\t Recebi Msg DEPOSITO");
+                        System.out.println("\t Depositei! ");
                         break;
                     case ConfiguracaoServidor.SAQUE:
                         System.out.println("Cliente =>");
-                        System.out.println("\t Recebi Msg SAQUE");
+                        System.out.println("\t Saquei! ");
                         break;
                     case ConfiguracaoServidor.PORTA_CONEXAO:
                         this.porta_conexao = buf.getInt();
@@ -59,7 +59,7 @@ public class ClienteBanco extends Thread {
                         break;
                     default:
                         System.out.println("Cliente =>");
-                        System.out.println("\t\t TIPO DE MENSAGEM INVALIDA: " + mensagem_tipo + "\n");
+                        System.out.println("\tTIPO DE MENSAGEM INVALIDA: " + mensagem_tipo);
                         break;
                 }
             }
@@ -73,7 +73,7 @@ public class ClienteBanco extends Thread {
         try {
             this.canalServidor = new Comunicador();
             this.canalServidor.conectaServidor(this.IP_SERV + ":" + this.PORTA_SERV);
-            System.out.println("Conectei ao servidor: " + this.canalServidor.portaRemotaClienteDesc());
+            System.out.println(" Me conectei ao servidor: " + this.canalServidor.portaRemotaClienteDesc());
             this.start();
         } catch (Exception e) {
             e.printStackTrace();
@@ -90,10 +90,10 @@ public class ClienteBanco extends Thread {
             System.out.println("\t 2 - Saque                |");
             System.out.println("\t 3 - Consulta extrato     |");
             System.out.println("-----------------------------");
-            do {
-                System.out.println("Digite a opção:");
-                opcao = this.entradaDados.nextInt();
-
+            System.out.println("Digite a opção:");
+            opcao = this.entradaDados.nextInt();
+            
+             while (opcao != 0) {
                 switch (opcao) {
                     case 1:
                         deposito();
@@ -110,7 +110,7 @@ public class ClienteBanco extends Thread {
                     default:
                         System.out.println("Opção inválida.");
                 }
-            } while (opcao != 0);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -123,7 +123,7 @@ public class ClienteBanco extends Thread {
             int conta = this.entradaDados.nextInt();
             System.out.println("Informe o valor para deposito: ");
             float valorDeposito = this.entradaDados.nextFloat();
-            this.canalServidor.MsgSend_Deposito(this.canalServidor.getSocket(), conta, valorDeposito, this.porta_conexao);
+            this.canalServidor.(this.canalServidor.getSocket(), conta, valorDeposito, this.porta_conexao);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -131,6 +131,12 @@ public class ClienteBanco extends Thread {
 
     public void saque() {
         try {
+            this.entradaDados = new Scanner(System.in);
+            System.out.println("Informe a conta bancaria: ");
+            int conta = this.entradaDados.nextInt();
+            System.out.println("Informe o valor para Sacar: ");
+            float valorSaque = this.entradaDados.nextFloat();
+            this.canalServidor.(this.canalServidor.getSocket(), conta, valorSaque, this.porta_conexao);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -139,6 +145,11 @@ public class ClienteBanco extends Thread {
 
     public void extrato() {
         try {
+            this.entradaDados = new Scanner(System.in);
+            System.out.println("Informe a conta bancaria: ");
+            int conta = this.entradaDados.nextInt();
+            this.canalServidor.(this.canalServidor.getSocket(), conta, this.porta_conexao);
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -152,6 +163,5 @@ public class ClienteBanco extends Thread {
     public void setPorta_conexao(int porta_conexao) {
         this.porta_conexao = porta_conexao;
     }
-
 
 }

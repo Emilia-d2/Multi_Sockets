@@ -26,7 +26,7 @@ public class Comunicador extends Thread{
     private SocketChannel cliente = null;
     private ServerSocketChannel server = null;
     private InetSocketAddress endereco = null;
-    private BlockingQueue<ByteBuffer> entradaDados = new LinkedBlockingQueue<ByteBuffer>();
+    private BlockingQueue<ByteBuffer> entradaDados = new LinkedBlockingQueue<>();
     private static Map<Integer, SocketChannel> listaClientes;
     private boolean ativo;
     private int tipoUsuario;
@@ -44,7 +44,7 @@ public class Comunicador extends Thread{
         int PORTA_DEF = PORTA;
         this.IP = IP;
         boolean criar = false;
-        listaClientes = new LinkedHashMap<Integer, SocketChannel>();
+        listaClientes = new LinkedHashMap<>();
 
         while (!criar) {
             try {
@@ -103,7 +103,7 @@ public class Comunicador extends Thread{
 
     private void leituraRecebedor() {
         try {
-            Recebedor primeiro = new Recebedor(cliente, gerenteConta, this.entradaDados);
+            RecebedorDeDados primeiro = new RecebedorDeDados(cliente, gerenteConta, this.entradaDados);
             primeiro.start();
         } catch (Exception e) {
             e.printStackTrace();

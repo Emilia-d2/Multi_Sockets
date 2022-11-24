@@ -13,15 +13,15 @@ import java.util.concurrent.BlockingQueue;
  *
  * @author milif
  */
-public class Recebedor extends Thread{
+public class RecebedorDeDados extends Thread{
     
     private boolean recebendo_dados;
     SocketChannel cliente;
     SocketChannel gerente;
     BlockingQueue<ByteBuffer> entrada_dados;
-    int nBytes;
+    int bytes;
     
-    public Recebedor(SocketChannel cliente, SocketChannel gerente, BlockingQueue<ByteBuffer> entrada_dados) {
+    public RecebedorDeDados(SocketChannel cliente, SocketChannel gerente, BlockingQueue<ByteBuffer> entrada_dados) {
        try { 
            if(entrada_dados == cliente){
            this.cliente = cliente;

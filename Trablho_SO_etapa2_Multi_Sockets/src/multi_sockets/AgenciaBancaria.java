@@ -18,10 +18,11 @@ public final class AgenciaBancaria extends Thread{
     private Comunicador canalDoServidor;
     private LinkedHashMap<Integer, ContaBancaria> listaDeContas;
     private short mensagem_tipo;
-    private int numeroConta;
+    private String numeroConta;
     private String descricao;
     private float valorSaque;
     private float valorDeposito;
+    private float valorTotalConta;
     private int mensagem_tamanho;
     private int conexao_porta;
     
@@ -54,40 +55,42 @@ public final class AgenciaBancaria extends Thread{
 
                 switch (this.mensagem_tipo) {
                     case ConfiguracaoServidor.DEPOSITO:
-                        this.numeroConta = buf.getInt();
+                        this.numeroConta = buf.toString();
                         this.descricao = buf.toString();
+                        this.valorDeposito = buf.getFloat();
                         this.conexao_porta = buf.getInt();
                         System.out.println("----------------------------------------------------");
-                        System.out.println("Cliente Conectado =>                                |");
-                        System.out.println("\t Recebi mensagem do DEPOSITO                      |");
+                        System.out.println("Usuário Conectado =>                                |");
+                        System.out.println("\tDepositando...                                    |");
                         System.out.println("\t Conta Bancaria: " + this.numeroConta + "         |");
+                        System.out.println("\t Valor depósito: " + this.valorDeposito + "       |");
                         System.out.println("\t Descrição do Deposito: " + this.descricao + "    |");
                         System.out.println("----------------------------------------------------");
-                        this.tratamentoMensagemDeposito(this.numeroConta, this.descricao, this.conexao_porta);
+                        this.tratamentoMensagemDeposito(this.numeroConta, this.descricao, this.valorDeposito, this.conexao_porta);
                         break;
                     case ConfiguracaoServidor.SAQUE:
-                        this.numeroConta = buf.getInt();
+                        this.numeroConta = buf.toString();
                         this.descricao = buf.toString();
+                        this.valorSaque = buf.getFloat();
                         this.conexao_porta = buf.getInt();
                         System.out.println("----------------------------------------------------");
-                        System.out.println("Cliente Conectado =>                                |");
-                        System.out.println("\t Recebi mensagem do DEPOSITO                      |");
+                        System.out.println("Usuário Conectado =>                                |");
+                        System.out.println("\t Sacando...                                       |");
                         System.out.println("\t Conta Bancaria: " + this.numeroConta + "         |");
-                        System.out.println("\t Descrição do Deposito: " + this.descricao + "    |");
+                        System.out.println("\t Valor saque: " + this.valorSaque + "             |");
+                        System.out.println("\t Descrição do Saque: " + this.descricao + "       |");
                         System.out.println("----------------------------------------------------");
-                        this.tratamentoMensagemDeposito(this.numeroConta, this.descricao, this.conexao_porta);
+                        this.tratamentoMensagemSaque(this.numeroConta, this.descricao, this.valorDeposito, this.conexao_porta);
                         break;
                     case ConfiguracaoServidor.EXTRATO:
-                        this.numeroConta = buf.getInt();
-                        this.descricao = buf.toString();
+                        this.numeroConta = buf.toString();
                         this.conexao_porta = buf.getInt();
                         System.out.println("----------------------------------------------------");
-                        System.out.println("Cliente Conectado =>                                |");
-                        System.out.println("\t Recebi mensagem do DEPOSITO                      |");
+                        System.out.println("Usuário Conectado =>                                |");
+                        System.out.println("\t Tirando extrato...                               |");
                         System.out.println("\t Conta Bancaria: " + this.numeroConta + "         |");
-                        System.out.println("\t Descrição do Deposito: " + this.descricao + "    |");
                         System.out.println("----------------------------------------------------");
-                        this.tratamentoMensagemDeposito(this.numeroConta, this.descricao, this.conexao_porta);
+                        this.tratamentoMensagemExtrato(this.numeroConta, this.descricao, this.valorTotalConta, this.conexao_porta);
                         break;
                     default:
                         System.out.println("Cliente =>");
@@ -125,8 +128,8 @@ public final class AgenciaBancaria extends Thread{
             return null;
         }
     }
-
-    public void tratamentoMensagemSaque(ContaBancaria conta, float valorSaque) {
+    
+    public void tratamentoMensagemExtrato(String contaBancaria, String descricao, float valorTotal, int conexao_porta) {
         try {
 
         } catch (Exception e) {
@@ -134,15 +137,23 @@ public final class AgenciaBancaria extends Thread{
         }
     }
 
-    public void tratamentoMensagemDeposito(int numero_conta, String descricao, int conexao_porta) {
+    public void tratamentoMensagemSaque(String contaBancaria, String descricao, float valorSaque, int conexao_porta) {
         try {
-            if (this.listaDeContas.containsKey(numero_conta)) {
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void tratamentoMensagemDeposito(String contaBancaria, String descricao, float valorDeposito, int conexao_porta) {
+        try {
+            /*if (this.listaDeContas.containsValue(this.numeroConta)) {
                 this.listaDeContas.get(numero_conta).setConexao_porta(conexao_porta);
 
                 if (Comunicador.getClienteSocketLista().containsKey(conexao_porta)) {
                     this.canalDoServidor.MsgSend_Extrato(Comunicador.getClienteSocketLista().get(conexao_porta), numero_conta, valorDeposito);
                 }
-            }
+            }*/
 
         } catch (Exception e) {
             e.printStackTrace();

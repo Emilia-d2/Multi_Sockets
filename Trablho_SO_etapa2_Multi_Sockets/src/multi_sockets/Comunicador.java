@@ -160,15 +160,13 @@ public class Comunicador extends Thread{
         }
     }
 
-    public void MsgSend_Deposito(SocketChannel canal, int conta, float valorDeposito, int conexao_porta) {
-        // TIPO_MSG, TAMANHO, CONTA, VALOR DO DEPOSITO, PORTA DE CONEXAO
-        // SHORTINT, INT, INT, FLOAT, INT
+   public void MsgSend_Deposito(SocketChannel canal, String conta, float valorDeposito, int conexao_porta) {
         try {
             int tamMsg = 2 + 4 + 4 + 4 + 4;
             ByteBuffer writeBuffer = ByteBuffer.allocateDirect(tamMsg);
             writeBuffer.putShort(this.DEPOSITO);
             writeBuffer.putInt(tamMsg);
-            writeBuffer.putInt(conta);
+            writeBuffer.toString(conta);
             writeBuffer.putFloat(valorDeposito);
             writeBuffer.putInt(conexao_porta);
             writeBuffer.rewind();
@@ -179,8 +177,6 @@ public class Comunicador extends Thread{
     }
     
     public void Mensagem_Conexao_Server(SocketChannel canal, int conexao_porta) {
-        // TIPO_MSG, TAMANHO, PORTA DE CONEXAO
-        // SHORTINT, INT, INT
         try {
             int tamMsg = 2 + 4 + 4;
             ByteBuffer writeBuffer = ByteBuffer.allocateDirect(tamMsg);
@@ -212,8 +208,6 @@ public class Comunicador extends Thread{
     }
     
      public void MsgSend_Extrato(SocketChannel canal, int conta, float valorSaque) {
-         // TIPO_MSG, TAMANHO, CONTA, VALOR DO DEPOSITO, PORTA DE CONEXAO
-        // SHORTINT, INT, INT, FLOAT, INT
         try {
             int tamMsg = 2 + 4 + 4 + 4 + 4;
             ByteBuffer writeBuffer = ByteBuffer.allocateDirect(tamMsg);
@@ -229,7 +223,6 @@ public class Comunicador extends Thread{
     }
 
     public void channelWrite(SocketChannel canal, ByteBuffer writeBuffer) {
-        // TODO Auto-generated method stub
         try {
             long nbytes = 0;
             long toWrite = writeBuffer.remaining();

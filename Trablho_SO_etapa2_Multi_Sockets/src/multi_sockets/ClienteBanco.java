@@ -120,7 +120,7 @@ public class ClienteBanco extends Thread {
         try {
             this.entradaDados = new Scanner(System.in);
             System.out.println("Informe a conta bancaria: ");
-            int conta = this.entradaDados.nextInt();
+            String conta = this.entradaDados.toString();
             System.out.println("Informe o valor para deposito: ");
             float valorDeposito = this.entradaDados.nextFloat();
             this.canalServidor.(this.canalServidor.getSocket(), conta, valorDeposito, this.porta_conexao);

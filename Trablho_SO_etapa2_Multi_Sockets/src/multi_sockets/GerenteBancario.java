@@ -133,7 +133,7 @@ public class GerenteBancario extends Thread{
             int conta = this.entradaDados.nextInt();
             System.out.println("Informe o valor para deposito: ");
             float valorDeposito = this.entradaDados.nextFloat();
-            this.canalServidor.MsgSend_Deposito(this.canalServidor.getSocket(), conta, valorDeposito, this.porta_conexao);
+            //this.canalServidor.MsgSend_Deposito(this.canalServidor.getSocket(), conta, valorDeposito, this.porta_conexao);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -146,7 +146,7 @@ public class GerenteBancario extends Thread{
             int conta = this.entradaDados.nextInt();
             System.out.println("Informe o valor para deposito: ");
             float valorDeposito = this.entradaDados.nextFloat();
-            this.canalServidor.MsgSend_Deposito(this.canalServidor.getSocket(), conta, valorDeposito, this.porta_conexao);
+            //this.canalServidor.MsgSend_Deposito(this.canalServidor.getSocket(), conta, valorDeposito, this.porta_conexao);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -160,7 +160,7 @@ public class GerenteBancario extends Thread{
             int conta = this.entradaDados.nextInt();
             System.out.println("Informe o valor para deposito: ");
             float valorDeposito = this.entradaDados.nextFloat();
-            this.canalServidor.MsgSend_Deposito(this.canalServidor.getSocket(), conta, valorDeposito, this.porta_conexao);
+            //this.canalServidor.MsgSend_Deposito(this.canalServidor.getSocket(), conta, valorDeposito, this.porta_conexao);
 
 
         } catch (Exception e) {
@@ -175,7 +175,7 @@ public class GerenteBancario extends Thread{
             int conta = this.entradaDados.nextInt();
             System.out.println("Informe o valor para deposito: ");
             float valorDeposito = this.entradaDados.nextFloat();
-            this.canalServidor.MsgSend_Deposito(this.canalServidor.getSocket(), conta, valorDeposito, this.porta_conexao);
+            //this.canalServidor.MsgSend_Deposito(this.canalServidor.getSocket(), conta, valorDeposito, this.porta_conexao);
 
 
         } catch (Exception e) {

@@ -204,7 +204,16 @@ public class Comunicador extends Thread{
     }
 
     
-     public void Mensagem_Agencia(SocketChannel canal, String conta, float valorSaque) {
+    public void Mensagem_Agencia(SocketChannel canal, String conta, String descricao) {
+        try {
+           
+          
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+     
+    public void Mensagem_Conta_Bancari(SocketChannel canal, String agencia, String numero_conta, String nomeCliente, String cpf) {
         try {
            
           

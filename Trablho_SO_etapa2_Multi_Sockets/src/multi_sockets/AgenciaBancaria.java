@@ -181,7 +181,7 @@ public final class AgenciaBancaria extends Thread{
                 this.listaDeContas.get(numeroConta).setConexao_porta(conexao_porta);
 
                 if (this.canalDoServidor.getClienteSocketLista().containsKey(conexao_porta)) {
-                    this.canalDoServidor.Mensagem_Agencia(this.canalDoServidor.getClienteSocketLista().get(conexao_porta), numeroConta, valorDeposito);
+                    this.canalDoServidor.Mensagem_Agencia(this.canalDoServidor.getClienteSocketLista().get(conexao_porta), this.numeroConta, this.descricao);
                 }
             }
 

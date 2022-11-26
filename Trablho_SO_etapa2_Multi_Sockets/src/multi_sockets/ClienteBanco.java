@@ -18,7 +18,6 @@ public class ClienteBanco extends Thread {
     private Comunicador canalServidor;
     private Scanner entradaDados;
     private short mensagem_tipo;
-    private int mensagem_tamanho;
     private int porta_conexao;
 
     public static void main(String[] args) {
@@ -37,7 +36,6 @@ public class ClienteBanco extends Thread {
             while (true) {
                 buf = this.canalServidor.RecebendoMensagem();
                 this.mensagem_tipo = buf.getShort();
-                this.mensagem_tamanho = buf.getInt();
 
                 switch (this.mensagem_tipo) {
                     case ConfiguracaoServidor.EXTRATO:

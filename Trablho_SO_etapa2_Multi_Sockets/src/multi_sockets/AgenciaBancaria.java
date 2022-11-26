@@ -14,9 +14,9 @@ import java.util.LinkedHashMap;
 public final class AgenciaBancaria extends Thread{
     
     private String IP = ConfiguracaoServidor.IP_SERV;
-    private int numero_agencia;
+    private String numero_agencia;
     private Comunicador canalDoServidor;
-    private LinkedHashMap<Integer, ContaBancaria> listaDeContas;
+    private LinkedHashMap<String, ContaBancaria> listaDeContas;
     private short mensagem_tipo;
     private String numeroConta;
     private String descricao;
@@ -26,7 +26,7 @@ public final class AgenciaBancaria extends Thread{
     private int mensagem_tamanho;
     private int conexao_porta;
     
-    public AgenciaBancaria(int numero_agencia) {
+    public AgenciaBancaria(String numero_agencia) {
         try {
             this.setNumeroAgencia(numero_agencia);
             this.canalDoServidor = new Comunicador(this.IP);
@@ -150,15 +150,15 @@ public final class AgenciaBancaria extends Thread{
         }
     }
 
-    public void setNumeroAgencia(int numero_agencia) {
+    public void setNumeroAgencia(String numero_agencia) {
         this.numero_agencia = numero_agencia;
     }
 
-    public int getNumeroAgencia() {
+    public String getNumeroAgencia() {
         return this.numero_agencia;
     }
 
-    public void setContaBancaria(int numeroConta, ContaBancaria conta) {
+    public void setContaBancaria(String numeroConta, ContaBancaria conta) {
         try {
             this.listaDeContas.put(numeroConta, conta);
         } catch (Exception e) {

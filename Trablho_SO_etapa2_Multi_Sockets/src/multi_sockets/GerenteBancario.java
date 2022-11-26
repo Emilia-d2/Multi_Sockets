@@ -18,7 +18,6 @@ public class GerenteBancario extends Thread{
     private Comunicador canalServidor;
     private Scanner entradaDados;
     private short mensagem_tipo;
-    private int mensagem_tamanho;
     private int porta_conexao;
     private ClienteBanco clienteBanco; 
     
@@ -40,7 +39,6 @@ public class GerenteBancario extends Thread{
             while (true) {
                 buffer = this.canalServidor.RecebendoMensagem();
                 this.mensagem_tipo = buffer.getShort();
-                this.mensagem_tamanho = buffer.getInt();
 
                 switch (this.mensagem_tipo) {
                     case ConfiguracaoServidor.CRIAR_CONTA:

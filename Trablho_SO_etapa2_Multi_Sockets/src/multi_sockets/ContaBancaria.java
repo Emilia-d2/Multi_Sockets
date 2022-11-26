@@ -23,7 +23,7 @@ public class ContaBancaria extends Thread{
     private Comunicador canalDoServidor;
     private short mensagem_tipo;
     private int mensagem_tamanho;
-    private LinkedHashMap<Integer, ContaBancaria> listaDeContas;
+    private LinkedHashMap<String, ContaBancaria> listaDeContas;
     
       
     
@@ -268,6 +268,10 @@ public class ContaBancaria extends Thread{
 
     public void setCfp(String cfp) {
         this.cfp = cfp;
+    }
+
+    void setAgencia(AgenciaBancaria agenciaA) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     

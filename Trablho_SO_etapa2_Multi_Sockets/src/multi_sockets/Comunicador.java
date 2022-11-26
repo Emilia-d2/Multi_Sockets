@@ -195,63 +195,20 @@ public class Comunicador extends Thread{
         }
     }
 
-   public void MsgSend_Deposito(SocketChannel canal, String conta, float valorDeposito, int conexao_porta) {
-        try {
-            int tamMsg = 2 + 4 + 4 + 4 + 4;
-            ByteBuffer writeBuffer = ByteBuffer.allocateDirect(tamMsg);
-            writeBuffer.putShort(this.DEPOSITO);
-            writeBuffer.putInt(tamMsg);
-           // writeBuffer.toString(conta);
-            writeBuffer.putFloat(valorDeposito);
-            writeBuffer.putInt(conexao_porta);
-            writeBuffer.rewind();
-            channelWrite(canal, writeBuffer);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
     
     public void Mensagem_Conexao_Server(SocketChannel canal, int conexao_porta) {
         try {
-            int tamMsg = 2 + 4 + 4;
-            ByteBuffer writeBuffer = ByteBuffer.allocateDirect(tamMsg);
-            writeBuffer.putShort(this.PORTA_CONEXAO);
-            writeBuffer.putInt(tamMsg);
-            writeBuffer.putInt(conexao_porta);
-            writeBuffer.rewind();
-            channelWrite(canal, writeBuffer);
+          
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void Mensagem_saque(SocketChannel canal, int conta, float valorSaque, int conexao_porta) {
-        try {
-            int tamMsg = 2 + 4 + 4 + 4 + 4;
-            ByteBuffer writeBuffer = ByteBuffer.allocateDirect(tamMsg);
-            writeBuffer.putShort(this.SAQUE);
-            writeBuffer.putInt(tamMsg);
-            writeBuffer.putInt(conta);
-            writeBuffer.putFloat(valorSaque);
-            writeBuffer.putInt(conexao_porta);
-            writeBuffer.rewind();
-            channelWrite(canal, writeBuffer);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
     
-     public void MsgSend_Extrato(SocketChannel canal, int conta, float valorSaque) {
+     public void Mensagem_Agencia(SocketChannel canal, String conta, float valorSaque) {
         try {
-            int tamMsg = 2 + 4 + 4 + 4 + 4;
-            ByteBuffer writeBuffer = ByteBuffer.allocateDirect(tamMsg);
-            writeBuffer.putShort(this.EXTRATO);
-            writeBuffer.putInt(tamMsg);
-            writeBuffer.putInt(conta);
-            writeBuffer.putFloat(valorSaque);
-            writeBuffer.rewind();
-            channelWrite(canal, writeBuffer);
+           
+          
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -259,22 +216,7 @@ public class Comunicador extends Thread{
 
     public void channelWrite(SocketChannel canal, ByteBuffer writeBuffer) {
         try {
-            long nbytes = 0;
-            long toWrite = writeBuffer.remaining();
-            try {
-                while (nbytes != toWrite) {
-                    nbytes += canal.write(writeBuffer);
-                    try {
-                        Thread.sleep(200);
-                    } catch (InterruptedException e) {
-                    }
-                }
-            } catch (ClosedChannelException cce) {
-                cce.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            writeBuffer.rewind();
+         
         } catch (Exception e) {
             e.printStackTrace();
         }

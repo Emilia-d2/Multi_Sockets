@@ -177,6 +177,13 @@ public final class AgenciaBancaria extends Thread{
     
     public void tratamentoMensagemAgenciaBancria(String contaBancaria, String descricao, int conexao_porta) {
         try {
+            if (this.listaDeContas.containsKey(numeroConta)) {
+                this.listaDeContas.get(numeroConta).setConexao_porta(conexao_porta);
+
+                if (this.canalDoServidor.getClienteSocketLista().containsKey(conexao_porta)) {
+                    this.canalDoServidor.Mensagem_Agencia(this.canalDoServidor.getClienteSocketLista().get(conexao_porta), numeroConta, valorDeposito);
+                }
+            }
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -70,7 +70,7 @@ public class ContaBancaria extends Thread{
                         System.out.println("\t Nome do usuário: " + this.nomeUsuario + "        |");
                         System.out.println("\t CPF do usuário: " + this.cfp + "                 |");
                         System.out.println("----------------------------------------------------");
-                        this.tratamentoMensagemCriarConta(this.agencia, this.numeroConta, this.nomeUsuario, this.cfp, this.conexao_porta);
+                        this.tratamentoMensagemContaBancaria(this.agencia, this.numeroConta, this.nomeUsuario, this.cfp, this.conexao_porta);
                         break;
                     case ConfiguracaoServidor.ATUALIZAR_CONTA:
                         this.agencia = buf.toString();
@@ -86,7 +86,7 @@ public class ContaBancaria extends Thread{
                         System.out.println("\t Nome do usuário: " + this.nomeUsuario + "        |");
                         System.out.println("\t CPF do usuário: " + this.cfp + "                 |");
                         System.out.println("----------------------------------------------------");
-                        this.tratamentoMensagemAtualizarConta(this.agencia, this.numeroConta, this.nomeUsuario, this.cfp, this.conexao_porta);
+                        this.tratamentoMensagemContaBancaria(this.agencia, this.numeroConta, this.nomeUsuario, this.cfp, this.conexao_porta);
                         break;
                     case ConfiguracaoServidor.LER_CONTA:
                         this.agencia = buf.toString();
@@ -102,7 +102,7 @@ public class ContaBancaria extends Thread{
                         System.out.println("\t Nome do usuário: " + this.nomeUsuario + "        |");
                         System.out.println("\t CPF do usuário: " + this.cfp + "                 |");
                         System.out.println("----------------------------------------------------");
-                       this.tratamentoMensagemLerConta(this.agencia, this.numeroConta, this.nomeUsuario, this.cfp, this.conexao_porta);
+                       this.tratamentoMensagemContaBancaria(this.agencia, this.numeroConta, this.nomeUsuario, this.cfp, this.conexao_porta);
                         break;
                     case ConfiguracaoServidor.DELETAR_CONTA:
                         this.agencia = buf.toString();
@@ -118,7 +118,7 @@ public class ContaBancaria extends Thread{
                         System.out.println("\t Nome do usuário: " + this.nomeUsuario + "        |");
                         System.out.println("\t CPF do usuário: " + this.cfp + "                 |");
                         System.out.println("----------------------------------------------------");
-                        this.tratamentoMensagemDeletarConta(this.agencia, this.numeroConta, this.nomeUsuario, this.cfp, this.conexao_porta);
+                        this.tratamentoMensagemContaBancaria(this.agencia, this.numeroConta, this.nomeUsuario, this.cfp, this.conexao_porta);
                         break;
                     case ConfiguracaoServidor.DEPOSITO:
                         this.agencia = buf.toString();
@@ -134,7 +134,7 @@ public class ContaBancaria extends Thread{
                         System.out.println("\t Nome do usuário: " + this.nomeUsuario + "        |");
                         System.out.println("\t CPF do usuário: " + this.cfp + "                 |");
                         System.out.println("----------------------------------------------------");
-                        this.tratamentoMensagemDepositoConta(this.agencia, this.numeroConta, this.nomeUsuario, this.cfp, this.conexao_porta);
+                        this.tratamentoMensagemContaBancaria(this.agencia, this.numeroConta, this.nomeUsuario, this.cfp, this.conexao_porta);
                         break;
                     case ConfiguracaoServidor.SAQUE:
                         this.agencia = buf.toString();
@@ -150,7 +150,7 @@ public class ContaBancaria extends Thread{
                         System.out.println("\t Nome do usuário: " + this.nomeUsuario + "        |");
                         System.out.println("\t CPF do usuário: " + this.cfp + "                 |");
                         System.out.println("----------------------------------------------------");
-                        this.tratamentoMensagemSaqueConta(this.agencia, this.numeroConta, this.nomeUsuario, this.cfp, this.conexao_porta);
+                        this.tratamentoMensagemContaBancaria(this.agencia, this.numeroConta, this.nomeUsuario, this.cfp, this.conexao_porta);
                         break;                  
                     case ConfiguracaoServidor.EXTRATO:
                         this.agencia = buf.toString();
@@ -166,7 +166,7 @@ public class ContaBancaria extends Thread{
                         System.out.println("\t Nome do usuário: " + this.nomeUsuario + "        |");
                         System.out.println("\t CPF do usuário: " + this.cfp + "                 |");
                         System.out.println("----------------------------------------------------");
-                        this.tratamentoMensagemExtratoConta(this.agencia, this.numeroConta, this.nomeUsuario, this.cfp, this.conexao_porta);
+                        this.tratamentoMensagemContaBancaria(this.agencia, this.numeroConta, this.nomeUsuario, this.cfp, this.conexao_porta);
                         break;
                     default:
                         System.out.println("Usuário =>");
@@ -197,67 +197,14 @@ public class ContaBancaria extends Thread{
         }
     }
 
-    public void tratamentoMensagemCriarConta(String agencia, String numero_conta, String nomeCliente, String cpf, int conexao_porta) {
+    public void tratamentoMensagemContaBancaria(String agencia, String numero_conta, String nomeCliente, String cpf, int conexao_porta) {
         try {
-
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void tratamentoMensagemAtualizarConta(String agencia, String numero_conta, String nomeCliente, String cpf, int conexao_porta) {
-        try {
-           
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    public void tratamentoMensagemDeletarConta(String agencia, String numero_conta, String nomeCliente, String cpf, int conexao_porta) {
-        try {
-           
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    public void tratamentoMensagemLerConta(String agencia, String numero_conta, String nomeCliente, String cpf, int conexao_porta) {
-        try {
-           
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    public void tratamentoMensagemSaqueConta(String agencia, String numero_conta, String nomeCliente, String cpf, int conexao_porta) {
-        try {
-           
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    public void tratamentoMensagemDepositoConta(String agencia, String numero_conta, String nomeCliente, String cpf, int conexao_porta) {
-        try {
-           
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    public void tratamentoMensagemExtratoConta(String agencia, String numero_conta, String nomeCliente, String cpf, int conexao_porta) {
-        try {
-           
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public int getConexao_porta() {
         return conexao_porta;

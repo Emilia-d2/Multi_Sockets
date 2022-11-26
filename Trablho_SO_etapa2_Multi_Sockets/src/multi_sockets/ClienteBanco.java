@@ -123,7 +123,7 @@ public class ClienteBanco extends Thread {
             String conta = this.entradaDados.toString();
             System.out.println("Informe o valor para deposito: ");
             float valorDeposito = this.entradaDados.nextFloat();
-            this.canalServidor.(this.canalServidor.getSocket(), conta, valorDeposito, this.porta_conexao);
+            //this.canalServidor.(this.canalServidor.getSocket(), conta, valorDeposito, this.porta_conexao);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -136,7 +136,7 @@ public class ClienteBanco extends Thread {
             int conta = this.entradaDados.nextInt();
             System.out.println("Informe o valor para Sacar: ");
             float valorSaque = this.entradaDados.nextFloat();
-            this.canalServidor.(this.canalServidor.getSocket(), conta, valorSaque, this.porta_conexao);
+            //this.canalServidor.(this.canalServidor.getSocket(), conta, valorSaque, this.porta_conexao);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -148,7 +148,7 @@ public class ClienteBanco extends Thread {
             this.entradaDados = new Scanner(System.in);
             System.out.println("Informe a conta bancaria: ");
             int conta = this.entradaDados.nextInt();
-            this.canalServidor.(this.canalServidor.getSocket(), conta, this.porta_conexao);
+            //this.canalServidor.(this.canalServidor.getSocket(), conta, this.porta_conexao);
 
 
         } catch (Exception e) {

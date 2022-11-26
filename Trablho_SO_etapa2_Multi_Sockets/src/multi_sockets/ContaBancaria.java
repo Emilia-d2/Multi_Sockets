@@ -120,6 +120,54 @@ public class ContaBancaria extends Thread{
                         System.out.println("----------------------------------------------------");
                         this.tratamentoMensagemDeletarConta(this.agencia, this.numeroConta, this.nomeUsuario, this.cfp, this.conexao_porta);
                         break;
+                    case ConfiguracaoServidor.DEPOSITO:
+                        this.agencia = buf.toString();
+                        this.numeroConta = buf.toString();
+                        this.nomeUsuario = buf.toString();
+                        this.cfp = buf.toString();
+                        this.conexao_porta = buf.getInt();
+                        System.out.println("----------------------------------------------------");
+                        System.out.println("Usuário Conectado =>                                |");
+                        System.out.println("\t Recebi mensagem do ....                          |");
+                        System.out.println("\t Agencia Bancaria: " + this.agencia + "           |");
+                        System.out.println("\t Conta Bancaria: " + this.numeroConta + "         |");
+                        System.out.println("\t Nome do usuário: " + this.nomeUsuario + "        |");
+                        System.out.println("\t CPF do usuário: " + this.cfp + "                 |");
+                        System.out.println("----------------------------------------------------");
+                        this.tratamentoMensagemDepositoConta(this.agencia, this.numeroConta, this.nomeUsuario, this.cfp, this.conexao_porta);
+                        break;
+                    case ConfiguracaoServidor.SAQUE:
+                        this.agencia = buf.toString();
+                        this.numeroConta = buf.toString();
+                        this.nomeUsuario = buf.toString();
+                        this.cfp = buf.toString();
+                        this.conexao_porta = buf.getInt();
+                        System.out.println("----------------------------------------------------");
+                        System.out.println("Usuário Conectado =>                                |");
+                        System.out.println("\t Recebi mensagem do ....                          |");
+                        System.out.println("\t Agencia Bancaria: " + this.agencia + "           |");
+                        System.out.println("\t Conta Bancaria: " + this.numeroConta + "         |");
+                        System.out.println("\t Nome do usuário: " + this.nomeUsuario + "        |");
+                        System.out.println("\t CPF do usuário: " + this.cfp + "                 |");
+                        System.out.println("----------------------------------------------------");
+                        this.tratamentoMensagemSaqueConta(this.agencia, this.numeroConta, this.nomeUsuario, this.cfp, this.conexao_porta);
+                        break;                  
+                    case ConfiguracaoServidor.EXTRATO:
+                        this.agencia = buf.toString();
+                        this.numeroConta = buf.toString();
+                        this.nomeUsuario = buf.toString();
+                        this.cfp = buf.toString();
+                        this.conexao_porta = buf.getInt();
+                        System.out.println("----------------------------------------------------");
+                        System.out.println("Usuário Conectado =>                                |");
+                        System.out.println("\t Recebi mensagem do ....                          |");
+                        System.out.println("\t Agencia Bancaria: " + this.agencia + "           |");
+                        System.out.println("\t Conta Bancaria: " + this.numeroConta + "         |");
+                        System.out.println("\t Nome do usuário: " + this.nomeUsuario + "        |");
+                        System.out.println("\t CPF do usuário: " + this.cfp + "                 |");
+                        System.out.println("----------------------------------------------------");
+                        this.tratamentoMensagemExtratoConta(this.agencia, this.numeroConta, this.nomeUsuario, this.cfp, this.conexao_porta);
+                        break;
                     default:
                         System.out.println("Usuário =>");
                         System.out.println("\t\t TIPO DE MENSAGEM INVALIDA: " + mensagem_tipo + "\n");
@@ -183,6 +231,33 @@ public class ContaBancaria extends Thread{
             e.printStackTrace();
         }
     }
+    
+    public void tratamentoMensagemSaqueConta(String agencia, String numero_conta, String nomeCliente, String cpf, int conexao_porta) {
+        try {
+           
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void tratamentoMensagemDepositoConta(String agencia, String numero_conta, String nomeCliente, String cpf, int conexao_porta) {
+        try {
+           
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void tratamentoMensagemExtratoConta(String agencia, String numero_conta, String nomeCliente, String cpf, int conexao_porta) {
+        try {
+           
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public int getConexao_porta() {
         return conexao_porta;
@@ -229,7 +304,7 @@ public class ContaBancaria extends Thread{
     }
 
     public void setAgencia(String agencia) {
-        this.agencia = "0226";
+        this.agencia = agencia;
     }
 
     public String getNomeUsuario() {

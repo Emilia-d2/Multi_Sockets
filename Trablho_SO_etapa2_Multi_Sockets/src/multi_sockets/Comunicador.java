@@ -77,7 +77,9 @@ public class Comunicador extends Thread{
                     cliente = server.accept();
                     listaClientes.put(this.portaRemotaClienteDesc(), cliente);
                     System.out.println("Alguem se comunicou: " + this.canalRemotoClienteDesc());
+                    System.out.println("Alguem se comunicou: " + this.canalRemotoGerenteeDesc());
                     Mensagem_Conexao_Server(cliente, this.portaRemotaClienteDesc());
+                    Mensagem_Conexao_Server(gerenteConta, this.portaRemotaGerenteDesc());
                     leituraRecebedor();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -103,7 +105,7 @@ public class Comunicador extends Thread{
 
     private void leituraRecebedor() {
         try {
-            RecebedorDeDados primeiro = new RecebedorDeDados(cliente, gerenteConta, this.entradaDados);
+            RecebedorDeDados primeiro = new RecebedorDeDados(this.cliente, this.gerenteConta, this.entradaDados);
             primeiro.start();
         } catch (Exception e) {
             e.printStackTrace();
@@ -129,6 +131,26 @@ public class Comunicador extends Thread{
         }
         return 0;
     }
+    
+    public String canalRemotoGerenteeDesc() {
+        try {
+            String enderecoHost = gerenteConta.socket().getInetAddress().getHostAddress();
+            String enderecoPorta = Integer.toString(gerenteConta.socket().getPort());
+            return enderecoHost + ":" + enderecoPorta;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public int portaRemotaGerenteDesc() {
+        try {
+            return gerenteConta.socket().getPort();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 
     public String Server() {
         try {
@@ -144,11 +166,24 @@ public class Comunicador extends Thread{
     public SocketChannel getSocket() {
         try {
             return this.cliente;
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
+    
+    public SocketChannel getSocketGerente() {
+        try {
+            return this.gerenteConta;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    
 
     public ByteBuffer RecebendoMensagem() {
         try {
@@ -166,7 +201,7 @@ public class Comunicador extends Thread{
             ByteBuffer writeBuffer = ByteBuffer.allocateDirect(tamMsg);
             writeBuffer.putShort(this.DEPOSITO);
             writeBuffer.putInt(tamMsg);
-            writeBuffer.toString(conta);
+           // writeBuffer.toString(conta);
             writeBuffer.putFloat(valorDeposito);
             writeBuffer.putInt(conexao_porta);
             writeBuffer.rewind();

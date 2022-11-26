@@ -45,8 +45,9 @@ public class RecebedorDeDados extends Thread{
                 ByteBuffer lendo = bytesRead(6);
                 if (lendo == null) {
                     cliente.close();
+                    gerente.close();
                 } else {
-                    //tipo mensagem
+                    
                     lendo.getShort();
                     int size = lendo.getInt();
                     lendo.rewind();
@@ -75,6 +76,7 @@ public class RecebedorDeDados extends Thread{
             int contagem = cliente.read(mensagem);
             if (contagem == -1) {
                 cliente.close();
+                gerente.close();
             }
             leituraBytes += contagem;
         }
